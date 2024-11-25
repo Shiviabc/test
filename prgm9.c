@@ -1,41 +1,39 @@
 #include<stdio.h>
-#include<math.h>
 #include<stdlib.h>
+
+void dfs(int n, int a[10][10], int source, int s[10])
+{
+    int i;
+    printf("%d\t", source);
+    s[source]=1;//source node visited
+    for(i=1; i<=n; i++) //recursion
+    {
+        if(s[i]=0 && a[source][i]==1)
+        dfs(n, a, i ,s);
+    }
+}
 
 void main()
 {
-    int i, key, a[100], newloc, loc, n, m;
-    printf("enter the no of elements: \n");
+    int n, source, a[10][10], i, j, s[10];
+    printf("enter num of nodes: \n");
     scanf("%d", &n);
-    printf("enter the m value for k mod m: \n");
-    scanf("%d", &m);
-    for(i=0; i<=10; i++)
+    printf("enter elements of adj matrix: \n");
+    for(i=1; i<=n; i++)//filling the matrix
     {
-        a[i]=-999;
+        for(j=1; j<=n; j++)
+        {
+            scanf("%d", &a[i][j]);
+        }
     }
 
-    for(i=1; i<=n; i++)
+    printf("enter source node: \n");
+    scanf("%d", &source);
+
+    for(i=1; i<=n; i++) //check on nodes visited
     {
-        printf("enter key value: \n");
-        scanf("%d", &key);
-        loc= key%m;
-        if(a[loc]==-999)
-        {
-            a[loc]=key;
-        }
-        else
-        {
-            newloc=loc+1;
-            while(a[newloc]!=-999 && newloc<=10)
-            
-                newloc=newloc+1;
-                a[newloc]=key;
-            
-        }
+        s[i]=0;
     }
-    printf("the keys for the hashed location are: " );
-    for(i=0; i<=10; i++)
-    {
-        printf("a[%d] === >> %d\n", i, a[i]);
-    }
+    printf("the dfs order is: \n");
+    dfs(n,a, source, s);
 }
